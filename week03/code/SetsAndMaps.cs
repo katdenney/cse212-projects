@@ -22,7 +22,25 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        //create a set with all the words, HashSet takes words from string array and puts them in new set
+        var wordSet = new HashSet<string>(words);
+        //using List to add matches on
+        var pairs = new List<string>();
+        //look at each word and reverse it, interpolated string
+        foreach (var word in words)
+        {
+            string reverse = $"{word[1]}{word[0]}"; 
+            //check if word and reversed word are not the same,check for reversed word in set before adding 
+            if (word != reverse && wordSet.Contains(reverse))
+            {
+                pairs.Add($"{word} & {reverse}");
+                //dont want duplicates, remove both words so same set isn't added twice 
+                wordSet.Remove(word);
+                wordSet.Remove(reverse);
+            }  
+        }
+        //List back to array (VSC doesnt like this, wants me to simplify) 
+        return pairs.ToArray();
     }
 
     /// <summary>

@@ -11,9 +11,14 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: valid max size of the customer service queue when its created
+        // Expected Result: should display size and max size 
         Console.WriteLine("Test 1");
+
+        var cs = new CustomerService(3);
+        Console.WriteLine(cs);
+
+        
 
         // Defect(s) Found: 
 
