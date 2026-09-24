@@ -61,6 +61,18 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+
+            if (degrees.ContainsKey(degree))
+            //if degree is the same add 1 
+            {
+             degrees[degree]++;   
+            }
+            else
+            //if degree is new start at 1
+            {
+                degrees[degree] = 1;
+            }
         }
 
         return degrees;
