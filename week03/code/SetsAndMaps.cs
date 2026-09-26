@@ -23,21 +23,23 @@ public static class SetsAndMaps
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
         //create a set with all the words, HashSet takes words from string array and puts them in new set
-        var wordSet = new HashSet<string>(words);
+        var wordSet = new HashSet<string>();
         //using List to add matches on
         var pairs = new List<string>();
         //look at each word and reverse it, interpolated string
         foreach (var word in words)
         {
+            if(!wordSet.Add(word))
+            {
+                continue;
+            }
             string reverse = $"{word[1]}{word[0]}"; 
             //check if word and reversed word are not the same,check for reversed word in set before adding 
-            if (word != reverse && wordSet.Contains(reverse))
+            if (word != reverse && wordSet.Contains(reverse)) 
             {
-                pairs.Add($"{word} & {reverse}");
-                //dont want duplicates, remove both words so same set isn't added twice 
-                wordSet.Remove(word);
-                wordSet.Remove(reverse);
+                pairs.Add($"{word} & {reverse}"); 
             }  
+            wordSet.Add(word);
         }
         //List back to array (VSC doesnt like this, wants me to simplify) 
         return pairs.ToArray();
@@ -97,7 +99,50 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        //normalize spaces and case
+        word1 = word1.Replace(" ", "").ToLower();
+        word2 = word2.Replace(" ", "").ToLower();
+        //check length not same
+        if (word1.Length != word2.Length)
+        {
+            return false;
+        }
+        //new dictionary to count letters in words <letter, count>
+        var letterCounts = new Dictionary<char, int>();
+        //count each letter word1
+        foreach(var letter in word1)
+        {
+            if (letterCounts.ContainsKey(letter))
+            //if the loop has already come to this letter add to count
+            {
+                letterCounts[letter]++;
+            }
+            else
+            //if new letter start count
+            {
+                letterCounts[letter]=1;
+            }
+        }
+        //subtract letters from word2, make every count 0 
+        foreach(var letter in word2)
+        {
+            if (!letterCounts.ContainsKey(letter))
+            {
+                return false;
+            }
+            letterCounts[letter]--;
+        } 
+        //check dictionary if all counts 0
+        foreach (var count in letterCounts.Values)
+        {
+            if (count != 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+
     }
 
     /// <summary>
