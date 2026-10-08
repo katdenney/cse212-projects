@@ -12,6 +12,11 @@ public class Node
     public void Insert(int value)
     {
         // TODO Start Problem 1
+        //base case dont insert duplicate
+        if (value == Data)
+        {
+            return;
+        }//dont insert duplicate
 
         if (value < Data)
         {
@@ -34,12 +39,45 @@ public class Node
     public bool Contains(int value)
     {
         // TODO Start Problem 2
-        return false;
+        //base case value found
+        if (value == Data)
+        {
+            return true;
+        }
+        if (value < Data)// search tree left 
+        {
+            if (Left is null)
+                return false;
+
+            return Left.Contains(value);
+        }
+        else//search right
+        {
+            if (Right is null)
+                return false;
+            return Right.Contains(value);
+        }
+        
+        
     }
 
     public int GetHeight()
     {
         // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        int leftHeight = 0;
+        int rightHeight = 0;
+        //get left height 
+        if (Left !=null)
+        {
+            leftHeight = Left.GetHeight();
+        }
+        //get right height
+        if (Right !=null)
+        {
+            rightHeight = Right.GetHeight();
+        }
+
+        // Replace this line with the correct return statement(s)
+        return 1+ Math.Max(leftHeight, rightHeight);
     }
 }
